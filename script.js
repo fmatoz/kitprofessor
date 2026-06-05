@@ -56,149 +56,112 @@ function setupVSLPlayer() {
     }
 }
 
-// ─── TRACKING N8N + META PIXEL ───────────────────────────────────────────────
+// ─── TRACKING — click_id + n8n + Meta Pixel ──────────────────────────────────
 
-var _tracking = (function () {
-
-    var N8N_ENDPOINT = 'https://projetopessoal-n8n.h574he.easypanel.host/webhook/track';
-    var CHECKOUT_BASE = 'https://pay.wiapy.com/G8ZuOXn4ow';
-    var OFFER_NAME    = 'Kit Professor Inclusivo TEA';
-    var OFFER_VALUE   = 10;
-
-    // 1. click_id persistente por visitante
-    function getClickId() {
-        var key = 'lp_click_id';
-        var id  = localStorage.getItem(key);
-        if (!id) {
-            id = Date.now() + '_' + Math.random().toString(36).substring(2, 10);
-            localStorage.setItem(key, id);
-        }
-        return id;
+// 1. click_id único por visitante (persiste no localStorage)
+function getClickId() {
+    var id = localStorage.getItem('click_id');
+    if (!id) {
+        id = Date.now() + '_' + Math.random().toString(36).substring(2, 10);
+        localStorage.setItem('click_id', id);
     }
+    return id;
+}
 
-    // 2. Captura UTMs e fbclid da URL
-    function getUrlParams() {
-        var sp = new URLSearchParams(window.location.search);
-        return {
-            utm_source:   sp.get('utm_source')   || '',
-            utm_medium:   sp.get('utm_medium')   || '',
-            utm_campaign: sp.get('utm_campaign') || '',
-            utm_content:  sp.get('utm_content')  || '',
-            utm_term:     sp.get('utm_term')     || '',
-            utm_id:       sp.get('utm_id')       || '',
-            fbclid:       sp.get('fbclid')       || ''
-        };
-    }
+// 2. UTMs da URL
+function getUtms() {
+    var sp = new URLSearchParams(window.location.search);
+    return {
+        utm_source:   sp.get('utm_source')   || '',
+        utm_medium:   sp.get('utm_medium')   || '',
+        utm_campaign: sp.get('utm_campaign') || '',
+        utm_content:  sp.get('utm_content')  || '',
+        utm_term:     sp.get('utm_term')     || '',
+        utm_id:       sp.get('utm_id')       || '',
+        fbclid:       sp.get('fbclid')       || ''
+    };
+}
 
-    // 3. Lê cookies fbp e fbc
-    function getCookie(name) {
-        var match = document.cookie.match(new RegExp('(?:^|;\\s*)' + name + '=([^;]*)'));
-        return match ? decodeURIComponent(match[1]) : '';
-    }
+// 3. Lê cookie pelo nome
+function getCookie(name) {
+    var match = document.cookie.match(new RegExp('(?:^|;\\s*)' + name + '=([^;]*)'));
+    return match ? decodeURIComponent(match[1]) : '';
+}
 
-    // 4. Envia evento para o n8n (sem bloquear a página)
-    function sendEvent(eventName, extraData) {
-        var clickId = getClickId();
-        var p = getUrlParams();
-        var payload = Object.assign({
-            event:        eventName,
-            event_id:     eventName + '_' + clickId,
-            click_id:     clickId,
-            utm_source:   p.utm_source,
-            utm_medium:   p.utm_medium,
-            utm_campaign: p.utm_campaign,
-            utm_content:  p.utm_content,
-            utm_term:     p.utm_term,
-            fbclid:       p.fbclid,
-            fbp:          getCookie('_fbp'),
-            fbc:          getCookie('_fbc'),
-            offer_name:   OFFER_NAME,
-            offer_value:  OFFER_VALUE,
-            page_url:     window.location.href,
-            user_agent:   navigator.userAgent
-        }, extraData || {});
+// 4. Envia evento para o n8n
+function sendTrack(eventName) {
+    var clickId = getClickId();
+    var utms    = getUtms();
+    var payload = {
+        event:        eventName,
+        event_id:     eventName + '_' + clickId,
+        click_id:     clickId,
+        utm_source:   utms.utm_source,
+        utm_medium:   utms.utm_medium,
+        utm_campaign: utms.utm_campaign,
+        utm_content:  utms.utm_content,
+        utm_term:     utms.utm_term,
+        fbclid:       utms.fbclid,
+        fbp:          getCookie('_fbp'),
+        fbc:          getCookie('_fbc'),
+        offer_name:   'Kit Professor Inclusivo TEA',
+        offer_value:  10,
+        page_url:     window.location.href,
+        user_agent:   navigator.userAgent
+    };
+    try {
+        fetch('https://projetopessoal-n8n.h574he.easypanel.host/webhook/track', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify(payload)
+        }).catch(function() {});
+    } catch (e) {}
+}
 
-        try {
-            // no-cors + credentials omit = sem preflight, sem bloqueio de CORS
-            fetch(N8N_ENDPOINT, {
-                method: 'POST',
-                body: JSON.stringify(payload),
-                mode: 'no-cors',
-                credentials: 'omit',
-                keepalive: true
-            }).catch(function(){});
-        } catch (e) {}
-    }
+// 5. Monta URL do checkout com UTMs + cid dentro do utm_content
+function buildCheckoutUrl() {
+    var clickId = getClickId();
+    var utms    = getUtms();
+    var url     = new URL('https://pay.wiapy.com/G8ZuOXn4ow');
 
-    // 5. Monta URL de checkout com UTMs + cid no utm_content
-    function buildCheckoutUrl() {
-        var clickId = getClickId();
-        var p = getUrlParams();
-        var url = new URL(CHECKOUT_BASE);
+    // Remove cid antigo se vier na URL, para não duplicar
+    var raw = utms.utm_content.replace(/\|\|cid:[^\|]*/g, '').replace(/^cid:[^\|]*/g, '');
+    var newContent = raw ? raw + '||cid:' + clickId : 'cid:' + clickId;
 
-        // utm_content: original||cid:CLICK_ID (não duplica se já tiver cid:)
-        var rawContent = p.utm_content;
-        var cidTag = 'cid:' + clickId;
-        var newContent;
-        if (!rawContent) {
-            newContent = cidTag;
-        } else if (rawContent.indexOf('cid:') === -1) {
-            newContent = rawContent + '||' + cidTag;
-        } else {
-            newContent = rawContent; // já tem cid, não duplica
-        }
+    if (utms.utm_source)   url.searchParams.set('utm_source',   utms.utm_source);
+    if (utms.utm_medium)   url.searchParams.set('utm_medium',   utms.utm_medium);
+    if (utms.utm_campaign) url.searchParams.set('utm_campaign', utms.utm_campaign);
+                           url.searchParams.set('utm_content',  newContent);
+    if (utms.utm_term)     url.searchParams.set('utm_term',     utms.utm_term);
+    if (utms.utm_id)       url.searchParams.set('utm_id',       utms.utm_id);
+    if (utms.fbclid)       url.searchParams.set('fbclid',       utms.fbclid);
 
-        if (p.utm_source)   url.searchParams.set('utm_source',   p.utm_source);
-        if (p.utm_medium)   url.searchParams.set('utm_medium',   p.utm_medium);
-        if (p.utm_campaign) url.searchParams.set('utm_campaign', p.utm_campaign);
-                            url.searchParams.set('utm_content',  newContent);
-        if (p.utm_term)     url.searchParams.set('utm_term',     p.utm_term);
-        if (p.utm_id)       url.searchParams.set('utm_id',       p.utm_id);
-        if (p.fbclid)       url.searchParams.set('fbclid',       p.fbclid);
+    return url.toString();
+}
 
-        return url.toString();
-    }
-
-    // 6. Dispara page_view no carregamento
-    function trackPageView() {
-        sendEvent('page_view');
-    }
-
-    // 7. Intercepta todos os botões de checkout
-    function setupCheckoutButtons() {
-        var selectors = [
-            '[data-cta="checkout"]',
-            '[data-cta="premium-checkout"]',
-            '[data-cta="start-checkout"]',
-            'a[href*="pay.wiapy.com"]'
-        ];
-        var els = document.querySelectorAll(selectors.join(','));
-
-        els.forEach(function (el) {
-            el.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                // Pixel Meta
-                if (typeof fbq === 'function') {
-                    fbq('track', 'InitiateCheckout');
-                }
-
-                // n8n
-                sendEvent('initiate_checkout');
-
-                // Redireciona para checkout com UTMs
-                var dest = buildCheckoutUrl();
-                window.location.href = dest;
-            });
-        });
-    }
-
-    return { trackPageView: trackPageView, setupCheckoutButtons: setupCheckoutButtons };
-})();
-
+// 6. Configura eventos de pixel + n8n + checkout
 function setupPixelEvents() {
-    _tracking.trackPageView();
-    _tracking.setupCheckoutButtons();
+    // page_view: Pixel Meta + n8n
+    if (typeof fbq === 'function') fbq('track', 'PageView');
+    sendTrack('page_view');
+
+    // Botões de checkout
+    var selectors = [
+        '[data-cta="checkout"]',
+        '[data-cta="premium-checkout"]',
+        '[data-cta="start-checkout"]',
+        'a[href*="pay.wiapy.com"]',
+        '.plan-button',
+        '.premium-button'
+    ];
+    document.querySelectorAll(selectors.join(',')).forEach(function(el) {
+        el.addEventListener('click', function(e) {
+            e.preventDefault();
+            sendTrack('initiate_checkout');
+            if (typeof fbq === 'function') fbq('track', 'InitiateCheckout');
+            window.location.href = buildCheckoutUrl();
+        });
+    });
 }
 
 function scrollToPlans() {
