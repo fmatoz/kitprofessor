@@ -32,7 +32,7 @@
         });
     </script>
 
-    <!-- Meta Pixel (carrega depois do load) -->
+    <!-- Meta Pixel — apenas init (PageView disparado pelo script.js junto com o n8n) -->
     <script>
         window.addEventListener('load', function(){
             !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -41,7 +41,6 @@
             t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
             (window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
             fbq('init', '1158582940670701');
-            fbq('track', 'PageView');
         });
     </script>
 </head>
