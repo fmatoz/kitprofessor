@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Kit Professor Inclusivo TEA - Oferta Especial</title>
+
+    <!-- Preconnects e DNS prefetch -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
+    <link rel="dns-prefetch" href="https://www.clarity.ms">
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Preload do thumbnail do vídeo (LCP) -->
+    <link rel="preload" as="image" href="vsl-thumb.jpg" fetchpriority="high">
+
+    <!-- Microsoft Clarity (carrega depois do load) -->
+    <script>
+        window.addEventListener('load', function(){
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "w9r99s148l");
+        });
+    </script>
+
+    <!-- Meta Pixel (carrega depois do load) -->
+    <script>
+        window.addEventListener('load', function(){
+            !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+            n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+            (window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '1158582940670701');
+            fbq('track', 'PageView');
+        });
+    </script>
+</head>
+<body>
+    <!-- Meta Pixel noscript fallback -->
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1158582940670701&ev=PageView&noscript=1"/></noscript>
+
+    <!-- Topo com aviso de urgência -->
+    <div class="urgency-banner">
+        <div class="container">
+            <h2 class="urgency-text">DESCONTO SÓ HOJE <span id="current-date" class="date-highlight"></span></h2>
+        </div>
+    </div>
+    <script>
+        (function() {
+            var d = new Date();
+            var day = d.getDate().toString().padStart(2, '0');
+            var month = (d.getMonth() + 1).toString().padStart(2, '0');
+            var year = d.getFullYear();
+            document.getElementById('current-date').textContent = day + '/' + month + '/' + year;
+        })();
+    </script>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Professor, tenha <span class="number-500">+200</span> atividades <span class="number-500">adaptadas</span> para crianças <span class="autism-rainbow">autistas</span></h1>
+                <p class="hero-subtitle"><strong>Prontas para imprimir e usar em sala de aula</strong></p>
+                <p class="hero-complemento">Um kit em PDF para apoiar suas aulas sem perder horas criando atividades do zero.</p>
+
+                <p class="video-label">Veja o material por dentro</p>
+                <div class="video-wrapper">
+                    <div class="vsl-player" id="vsl-player">
+
+                        <!-- Tela inicial com play (antes de carregar) -->
+                        <div class="vsl-overlay" id="vsl-overlay">
+                            <div class="vsl-play-btn" id="vsl-play-btn">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <p class="vsl-tap-hint">Toque para assistir</p>
+                        </div>
+
+                        <!-- Tela de loading -->
+                        <div class="vsl-loading" id="vsl-loading" style="display:none;">
+                            <div class="vsl-spinner"></div>
+                            <p>Carregando conteúdo especial...</p>
+                        </div>
+
+                        <!-- Vídeo — src já definido para gerar thumbnail, preload só metadata -->
+                        <video id="vsl-video" src="vsl.mp4" poster="vsl-thumb.jpg" playsinline webkit-playsinline preload="metadata"></video>
+
+                        <!-- Ícone de pause/play (flash ao clicar) -->
+                        <div class="vsl-flash-icon" id="vsl-flash-icon">
+                            <i class="fas fa-pause" id="vsl-flash-i"></i>
+                        </div>
+
+                    </div>
+                </div>
+
+                <button class="cta-button hero-cta" onclick="scrollToPlans()" data-cta="scroll">
+                    <i class="fas fa-shopping-cart"></i> QUERO AGORA!
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- O Que Você Vai Receber -->
+    <section class="what-you-get">
+        <div class="container">
+            <h2 class="section-title">O Que Você Vai Receber</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <i class="fas fa-file-pdf benefit-icon"></i>
+                    <h3>+200 Atividades em PDF</h3>
+                    <p>Atividades adaptadas para crianças autistas, organizadas para imprimir e usar em sala.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-print benefit-icon"></i>
+                    <h3>Prontas para Imprimir</h3>
+                    <p>Material em PDF, simples de acessar e aplicar no dia a dia escolar.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-eye benefit-icon"></i>
+                    <h3>Atividades Visuais e Adaptadas</h3>
+                    <p>Materiais com propostas de pareamento, cores, coordenação motora, alfabetização e rotina.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-chalkboard-teacher benefit-icon"></i>
+                    <h3>Feito para Professores</h3>
+                    <p>Um apoio prático para quem precisa adaptar atividades sem começar do zero.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefícios Exclusivos -->
+    <section class="exclusive-benefits">
+        <div class="container">
+            <h2 class="section-title">Benefícios Exclusivos</h2>
+            <div class="exclusive-grid">
+                <div class="exclusive-card">
+                    <i class="fas fa-clock exclusive-icon"></i>
+                    <h3>Economize Tempo</h3>
+                    <p>Pare de perder horas procurando ou criando atividades adaptadas.</p>
+                </div>
+                <div class="exclusive-card">
+                    <i class="fas fa-school exclusive-icon"></i>
+                    <h3>Use em Sala de Aula</h3>
+                    <p>Atividades pensadas para apoio pedagógico com crianças autistas.</p>
+                </div>
+                <div class="exclusive-card">
+                    <i class="fas fa-palette exclusive-icon"></i>
+                    <h3>Material Simples e Visual</h3>
+                    <p>Ideal para facilitar a compreensão e a participação da criança.</p>
+                </div>
+                <div class="exclusive-card">
+                    <i class="fas fa-bolt exclusive-icon"></i>
+                    <h3>Acesso Imediato</h3>
+                    <p>Comprou, acessou e já pode imprimir.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bônus Inclusos -->
+    <section class="bonus-section">
+        <div class="container">
+            <h2 class="section-title">Bônus Inclusos Hoje</h2>
+            <div class="bonus-grid">
+                <div class="bonus-card">
+                    <div class="bonus-image">
+                        <img src="https://i.imgur.com/LVpVMX0.jpg" alt="Atividades para Crianças com TDAH" />
+                    </div>
+                    <h3>Atividades para Crianças com TDAH</h3>
+                    <div class="bonus-value">R$37</div>
+                    <p>Materiais extras para trabalhar atenção, foco e organização.</p>
+                </div>
+                <div class="bonus-card">
+                    <div class="bonus-image">
+                        <img src="https://i.imgur.com/e9AWgIG.jpg" alt="Atividades para Crianças com Dislexia" />
+                    </div>
+                    <h3>Atividades para Crianças com Dislexia</h3>
+                    <div class="bonus-value">R$37</div>
+                    <p>Atividades de apoio para leitura, sílabas, letras e associação visual.</p>
+                </div>
+                <div class="bonus-card">
+                    <div class="bonus-image">
+                        <img src="https://i.imgur.com/BBeoTaD.jpg" alt="Dinâmicas para Crianças Autistas" />
+                    </div>
+                    <h3>Dinâmicas para Crianças Autistas</h3>
+                    <div class="bonus-value">R$47</div>
+                    <p>Ideias simples para interação, rotina, comunicação e participação.</p>
+                </div>
+            </div>
+            <div class="total-bonus">
+                <h3>Total em bônus: <span class="line-through">R$121</span> <span class="free">GRÁTIS HOJE!</span></h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plano Único -->
+    <section class="pricing-plans" id="plans">
+        <div class="container">
+            <!-- Cronômetro -->
+            <div class="plans-timer">
+                <div class="timer-text">⏰ Oferta especial expira em:</div>
+                <div class="countdown-plans" id="countdown-plans">
+                    <div class="time-unit">
+                        <span class="time-number" id="plans-hours">01</span>
+                        <span class="time-label">Horas</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-number" id="plans-minutes">35</span>
+                        <span class="time-label">Min</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-number" id="plans-seconds">33</span>
+                        <span class="time-label">Seg</span>
+                    </div>
+                </div>
+            </div>
+            <h2 class="section-title">Acesse Hoje</h2>
+            <div class="plans-grid single-plan">
+                <div class="plan-card popular">
+                    <h3>Kit Professor Inclusivo TEA</h3>
+                    <div class="price">
+                        <span class="old-price">R$97</span>
+                        <span class="new-price">R$10,00</span>
+                        <span class="period">pagamento único</span>
+                        <div class="savings-amount">Você economiza R$87,00 + recebe os bônus grátis</div>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> +200 atividades adaptadas para crianças autistas</li>
+                        <li><i class="fas fa-check"></i> Material em PDF pronto para imprimir</li>
+                        <li><i class="fas fa-check"></i> Atividades visuais e organizadas</li>
+                        <li class="bonus-item"><i class="fas fa-gift"></i> Bônus com atividades para TDAH</li>
+                        <li class="bonus-item"><i class="fas fa-gift"></i> Bônus com atividades para Dislexia</li>
+                        <li class="bonus-item"><i class="fas fa-gift"></i> Bônus com dinâmicas para crianças autistas</li>
+                        <li><i class="fas fa-check"></i> Acesso imediato</li>
+                        <li><i class="fas fa-check"></i> Garantia de 7 dias</li>
+                    </ul>
+                    <a href="https://pay.wiapy.com/G8ZuOXn4ow" class="plan-button premium-button" data-cta="checkout"><i class="fas fa-shopping-cart"></i> QUERO AGORA!</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Para Quem É Esse Material -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Para Quem É Esse Material?</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card target-card">
+                    <div class="target-icon"><i class="fas fa-child"></i></div>
+                    <h3>Professores da Educação Infantil</h3>
+                    <p>Para quem precisa de atividades simples, visuais e adaptadas.</p>
+                </div>
+                <div class="testimonial-card target-card">
+                    <div class="target-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <h3>Professores do Ensino Fundamental</h3>
+                    <p>Para apoiar crianças autistas em atividades pedagógicas do dia a dia.</p>
+                </div>
+                <div class="testimonial-card target-card">
+                    <div class="target-icon"><i class="fas fa-hands-helping"></i></div>
+                    <h3>Apoio Pedagógico e Reforço</h3>
+                    <p>Para quem trabalha com acompanhamento, reforço ou adaptação escolar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title">Perguntas Frequentes</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Como acesso o material?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Após a compra, você recebe o acesso ao material em PDF para baixar e imprimir.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>O material é para qual idade?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>O material é indicado principalmente para crianças da educação infantil e anos iniciais, podendo ser adaptado conforme o nível da criança.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Posso usar em sala de aula?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sim. O material foi pensado para professores usarem como apoio pedagógico em sala de aula.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>O material substitui acompanhamento especializado?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Não. É um material de apoio pedagógico e não substitui avaliação individual, PEI ou acompanhamento de profissionais especializados.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Como funciona a garantia?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Você tem 7 dias de garantia. Se não gostar do material, pode solicitar reembolso dentro desse prazo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Garantia -->
+    <section class="guarantee">
+        <div class="container">
+            <div class="guarantee-content">
+                <div class="guarantee-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <div class="badge-text">
+                        <span class="badge-number">7</span>
+                        <span class="badge-label">DIAS</span>
+                    </div>
+                </div>
+                <h2>Garantia de 7 Dias</h2>
+                <p>Teste o material por 7 dias. Se não ficar satisfeito, devolvemos seu dinheiro sem complicação.</p>
+                <button class="cta-button guarantee-cta" onclick="scrollToPlans()" data-cta="scroll">
+                    <i class="fas fa-lock"></i> COMPRAR COM SEGURANÇA
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Kit Professor Inclusivo TEA. Todos os direitos reservados.</p>
+            <p>Material de apoio pedagógico para professores. Não substitui acompanhamento especializado.</p>
+        </div>
+    </footer>
+
+    <!-- Sistema de Notificações -->
+    <div id="notification-container" class="notification-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
