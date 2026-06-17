@@ -105,7 +105,7 @@ function sendTrack(eventName) {
         fbp:          getCookie('_fbp'),
         fbc:          getCookie('_fbc'),
         offer_name:   'Kit Professor Inclusivo TEA',
-        offer_value:  10,
+        offer_value:  19.90,
         page_url:     window.location.href,
         user_agent:   navigator.userAgent
     };
